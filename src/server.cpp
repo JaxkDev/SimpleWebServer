@@ -28,7 +28,7 @@ bool Server::start() {
     // Create socket
     server_socket_ = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket_ < 0) {
-        std::cerr << "Failed to create socket\n";
+        std::cerr << "Failed to create socket" << std::endl;
         return false;
     }
     
@@ -47,18 +47,18 @@ bool Server::start() {
     server_addr.sin_port = htons((unsigned short)(port_));
     
     if (bind(server_socket_, (sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-        std::cerr << "Bind failed\n";
+        std::cerr << "Bind failed" << std::endl;
         return false;
     }
 
     // Listen for connections
     if (listen(server_socket_, 10) < 0) {
-        std::cerr << "Listen failed\n";
+        std::cerr << "Listen failed" << std::endl;
         return false;
     }
-    
-    std::cout << "Simple Web Server started on " << SimpleWebServer::getPlatformName() << "\n";
-    std::cout << "Server running on http://localhost:" << port_ << "\n";
+
+    std::cout << "Simple Web Server started on " << SimpleWebServer::getPlatformName() << std::endl;
+    std::cout << "Server running on http://localhost:" << port_ << std::endl;
     
     running_ = true;
     
@@ -71,7 +71,7 @@ bool Server::start() {
         socket_t client_socket = accept(server_socket_, (sockaddr*)&client_addr, &client_len);
         
         if (client_socket < 0) {
-            std::cerr << "Accept failed\n";
+            std::cerr << "Accept failed" << std::endl;
             continue;
         }
         
