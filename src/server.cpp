@@ -44,7 +44,7 @@ bool Server::start() {
     sockaddr_in server_addr{};
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
-    server_addr.sin_port = htons(static_cast<unsigned short>(port_));
+    server_addr.sin_port = htons((unsigned short)(port_));
     
     if (bind(server_socket_, (sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
         std::cerr << "Bind failed\n";
@@ -158,6 +158,6 @@ bool Server::handleConnection(socket_t client_socket) {
     }
 
     // Send on socket
-    send(client_socket, response.c_str(), static_cast<int>(response.size()), 0);
+    send(client_socket, response.c_str(), (int)(response.size()), 0);
     return true;
 }
