@@ -6,7 +6,7 @@ int main() {
     Server server(80);
     
     if (!server.start()) {
-        std::cerr << "Failed to start server\n";
+        std::cerr << "Failed to start server" << std::endl;
         return 1;
     }
     
