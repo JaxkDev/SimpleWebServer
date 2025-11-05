@@ -3,6 +3,6 @@
 #include <string>
 
 namespace SimpleWebServer {
-    std::string getPlatformInfo();
-    void crossPlatformFunction();
-}
+    std::string getPlatformName();
+    void sleep(int seconds = 1);
+};

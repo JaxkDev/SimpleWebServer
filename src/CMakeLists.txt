@@ -3,6 +3,7 @@ add_executable(SimpleWebServer
     main.cpp
     # Other source files ADD HERE:
     utils.cpp
+    server.cpp
 )
 
 

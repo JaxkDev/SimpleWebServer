@@ -11,7 +11,7 @@
 #endif
 
 namespace SimpleWebServer {
-    std::string getPlatformInfo() {
+    std::string getPlatformName() {
         #ifdef _WIN32
             return "Windows";
         #else
@@ -19,8 +19,8 @@ namespace SimpleWebServer {
         #endif
     }
     
-    void crossPlatformFunction() {
+    void sleep(int seconds) {
         // Cross-platform implementation
-        SWS_SLEEP(1000);  // Sleep for 1 second
+        SWS_SLEEP(seconds * 1000);  // Sleep for the specified number of seconds
     }
 }
