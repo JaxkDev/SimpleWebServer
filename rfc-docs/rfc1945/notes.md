@@ -19,7 +19,7 @@ GET /index.html
 
 Response Example:
 ```html
-<html>\r\n
-Example HTML index page!\r\n
+<html>\n
+Example HTML index page!\n
 </html>
 ```
