@@ -6,6 +6,87 @@ add_executable(SimpleWebServer
     server.cpp
 )
 
+# ============================================================================
+# TARGET-SPECIFIC COMPILE OPTIONS (DO NOT TOUCH)
+# ============================================================================
+
+if(MSVC)
+    # MSVC compiler options using generator expressions
+    target_compile_options(SimpleWebServer PRIVATE
+        # Common warnings
+        /W4
+        /WX
+        # Security
+        /sdl
+        # Language
+        /Zc:__cplusplus
+        /permissive-
+        
+        # Configuration-specific options
+        $<$<CONFIG:Debug>:
+            /Od           # No optimization
+            /Zi           # Debug information
+            /RTC1         # Runtime checks
+        >
+        $<$<CONFIG:Release>:
+            /O2           # Maximum optimization
+            /Ob2          # Inline expansion
+            /GF           # String pooling
+            /Gy           # Function-level linking
+        >
+        $<$<CONFIG:RelWithDebInfo>:
+            /O2           # Maximum optimization  
+            /Zi           # Debug information
+            /Ob1          # Inline any suitable
+        >
+        $<$<CONFIG:MinSizeRel>:
+            /O1           # Minimize space
+            /Ob1          # Inline any suitable
+        >
+    )
+    
+    # MSVC linker options
+    target_link_options(SimpleWebServer PRIVATE
+        $<$<CONFIG:Debug,RelWithDebInfo>:
+            /DEBUG           # Generate debug info
+            /INCREMENTAL:NO  # No incremental linking
+        >
+        $<$<CONFIG:Release,MinSizeRel>:
+            /OPT:REF      # Eliminate unused functions
+            /OPT:ICF      # Identical COMDAT folding
+        >
+    )
+    
+else()
+    # GCC/Clang compiler options
+    target_compile_options(SimpleWebServer PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Werror
+        
+        # Configuration-specific
+        $<$<CONFIG:Debug>:
+            -O0
+            -g
+            -fno-omit-frame-pointer
+        >
+        $<$<CONFIG:Release>:
+            -O3
+            -DNDEBUG
+            -fomit-frame-pointer
+        >
+        $<$<CONFIG:RelWithDebInfo>:
+            -O2
+            -g
+            -DNDEBUG
+        >
+        $<$<CONFIG:MinSizeRel>:
+            -Os
+            -DNDEBUG
+        >
+    )
+endif()
 
 # Include directories
 target_include_directories(SimpleWebServer PRIVATE
@@ -16,22 +97,11 @@ target_include_directories(SimpleWebServer PRIVATE
 
 if(WIN32)
     # Windows-specific libraries
-    target_link_libraries(SimpleWebServer PRIVATE)
+    target_link_libraries(SimpleWebServer PRIVATE ws2_32 wsock32)
 else()
     # Unix-specific libraries (pthread, dl, etc.)
-    target_link_libraries(SimpleWebServer PRIVATE)
+    target_link_libraries(SimpleWebServer PRIVATE pthread)
 endif()
-
-
-# Compiler-specific flags
-#if(MSVC)
-#    # Visual Studio specific flags
-#    target_compile_options(SimpleWebServer PRIVATE /W4 /WX)
-#else()
-#    # GCC/Clang flags
-#    target_compile_options(SimpleWebServer PRIVATE -Wall -Wextra -Wpedantic -Werror)
-#endif()
-
 
 install(TARGETS SimpleWebServer
     RUNTIME DESTINATION bin

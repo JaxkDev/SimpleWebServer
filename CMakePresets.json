@@ -1,0 +1,73 @@
+﻿{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "windows-debug",
+      "displayName": "Windows Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      },
+      "environment": {
+        "CXX": "cl.exe"
+      }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows Release", 
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      },
+      "environment": {
+        "CXX": "cl.exe"
+      }
+    },
+    {
+      "name": "windows-relwithdebinfo",
+      "displayName": "Windows RelWithDebInfo",
+      "generator": "Ninja", 
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      },
+      "environment": {
+        "CXX": "cl.exe"
+      }
+    },
+    {
+      "name": "windows-minsizerel",
+      "displayName": "Windows MinSizeRel",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}", 
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "MinSizeRel", 
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      },
+      "environment": {
+        "CXX": "cl.exe"
+      }
+    }
+  ]
+}
